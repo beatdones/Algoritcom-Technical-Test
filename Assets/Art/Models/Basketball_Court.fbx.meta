@@ -3,7 +3,17 @@ guid: c7967d3cdd7ef6843b19f4289b312181
 ModelImporter:
   serializedVersion: 21300
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Floor_Gym
+    second: {fileID: 2100000, guid: f1f5554515689dc478252ee59d4301b7, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Overlay_Gym
+    second: {fileID: 2100000, guid: 0cb85202b7762634097b2614e15fb1a9, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
