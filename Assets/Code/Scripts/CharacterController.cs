@@ -2,142 +2,146 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CharacterController : MonoBehaviour
+namespace Algoritcom.TechnicalTest.Character
 {
-    #region VARIABLES
-    private float inputZ;
-    private float inputX;
-
-    private float desiredRotationSpeed = 0.08f;
-    private Vector3 desiredMoveDirection;
-
-    private CapsuleCollider collider;
-
-    private Animator animator;
-    private float speed = 1.0f;
-    private float allowPlayerRotation = 0.0f;
-    private bool isShooting;
-    private bool isCharging;
-
-    [SerializeField] private LayerMask groundLayer;
-    [SerializeField] private bool grounded;
-
-    [SerializeField] private Transform followTarget;
-
-    public delegate void PlayerIsInstantiate(Transform followTarget);
-    public static event PlayerIsInstantiate OnPlayerIsInstantiate;
-    #endregion
-
-    #region UNITY METHODS
-    private void Start()
+    public class CharacterController : MonoBehaviour
     {
-        animator = GetComponent<Animator>();
-        collider = GetComponent<CapsuleCollider>();
+        #region VARIABLES
+        private float _inputZ;
+        private float _inputX;
 
-        OnPlayerIsInstantiate.Invoke(followTarget);
-    }
+        private float _desiredRotationSpeed = 0.08f;
+        private Vector3 _desiredMoveDirection;
 
-    private void Update()
-    {
-        InputMagnitude(); //Movements & rotations
-        if (Input.GetButton("Fire2") && !isShooting) ChargeShoot(true);
-        if (Input.GetButton("Fire1")) Shoot(true);
-    }
+        private CapsuleCollider _collider;
 
-    private void FixedUpdate()
-    {
-        grounded = IsGrounded();
-    }
-    #endregion
+        private Animator _animator;
+        private float _speed = 1.0f;
+        private float _allowPlayerRotation = 0.0f;
+        private bool _isShooting;
+        private bool _isCharging;
 
-    #region PRIVATE METHODS
+        [SerializeField] private LayerMask _groundLayer;
+        [SerializeField] private bool _grounded;
 
-    /// <summary>
-    /// Checks if an object is grounded using mesh collision rather than a raycast.
-    /// It employs Physics.CheckCapsule with the collider's parameters and a specified ground layer, returning a boolean result.
-    /// </summary>
-    /// <returns></returns>
-    private bool IsGrounded()
-    {
-        return Physics.CheckCapsule(collider.bounds.center,
-                                    new Vector3(collider.bounds.center.x, collider.bounds.center.y - (collider.height / 2.0f), collider.bounds.center.z),
-                                    collider.radius,
-                                    groundLayer);
-    }
+        [SerializeField] private Transform _followTarget;
 
-    /// <summary>
-    /// Manages player input for movement and rotation.
-    /// It sets animator parameters based on input values, calculates speed, and triggers player rotation if the speed exceeds a threshold.
-    /// If the character is charging, it resets input parameters and exits the method.
-    /// </summary>
-    private void InputMagnitude()
-    {
-        if (isCharging)
+        public delegate void PlayerIsInstantiate(Transform followTarget);
+        public static event PlayerIsInstantiate OnPlayerIsInstantiate;
+        #endregion
+
+        #region UNITY METHODS
+        private void Start()
         {
-            animator.SetFloat("InputX", 0, 0.0f, Time.deltaTime);
-            animator.SetFloat("InputZ", 0, 0.0f, Time.deltaTime);
-            return;
+            _animator = GetComponent<Animator>();
+            _collider = GetComponent<CapsuleCollider>();
+
+            OnPlayerIsInstantiate.Invoke(_followTarget);
         }
 
-        inputX = Input.GetAxis("Horizontal");
-        inputZ = Input.GetAxis("Vertical");
-
-        animator.SetFloat("InputX", inputX, 0.0f, Time.deltaTime);
-        animator.SetFloat("InputZ", inputZ, 0.0f, Time.deltaTime);
-
-        speed = new Vector2(inputX, inputZ).sqrMagnitude;
-
-        if(speed > allowPlayerRotation)
+        private void Update()
         {
-            animator.SetFloat("InputMagnitude", speed, 0.0f,Time.deltaTime);
-            PlayerRotation();
+            InputMagnitude(); //Movements & rotations
+            if (Input.GetButton("Fire2") && !_isShooting) ChargeShoot(true);
+            if (Input.GetButton("Fire1")) Shoot(true);
         }
-        else if(speed < allowPlayerRotation)
+
+        private void FixedUpdate()
         {
-            animator.SetFloat("InputMagnitude", speed, 0.0f, Time.deltaTime);
+            _grounded = IsGrounded();
         }
-    }
+        #endregion
 
-    /// <summary>
-    /// Aligns the player's orientation with the input direction.
-    /// It utilizes the main camera's forward and right vectors, creating a desired movement direction.
-    /// The character smoothly rotates using Quaternion.Slerp towards the calculated direction at a specified rotation speed.
-    /// </summary>
-    private void PlayerRotation()
-    {
-        Camera camera = Camera.main;
-        Vector3 forward = camera.transform.forward;
-        Vector3 right = camera.transform.right;
-        forward.y = 0f;
-        right.y = 0f;
-        desiredMoveDirection = forward * inputZ + right * inputX;
-        transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(desiredMoveDirection), desiredRotationSpeed);
-    }
+        #region PRIVATE METHODS
 
-    private void ChargeShoot(bool action)
-    {
-        animator.SetBool("Charge", action);
-        isCharging = action;
-    }
+        /// <summary>
+        /// Checks if an object is grounded using mesh collision rather than a raycast.
+        /// It employs Physics.CheckCapsule with the collider's parameters and a specified ground layer, returning a boolean result.
+        /// </summary>
+        /// <returns></returns>
+        private bool IsGrounded()
+        {
+            return Physics.CheckCapsule(_collider.bounds.center,
+                                        new Vector3(_collider.bounds.center.x, _collider.bounds.center.y - (_collider.height / 2.0f), _collider.bounds.center.z),
+                                        _collider.radius,
+                                        _groundLayer);
+        }
 
-    private void Shoot(bool action)
-    {
-        animator.SetBool("Shoot", action);
-        isCharging = action;
-    }
-    #endregion
+        /// <summary>
+        /// Manages player input for movement and rotation.
+        /// It sets animator parameters based on input values, calculates speed, and triggers player rotation if the speed exceeds a threshold.
+        /// If the character is charging, it resets input parameters and exits the method.
+        /// </summary>
+        private void InputMagnitude()
+        {
+            if (_isCharging)
+            {
+                _animator.SetFloat("InputX", 0, 0.0f, Time.deltaTime);
+                _animator.SetFloat("InputZ", 0, 0.0f, Time.deltaTime);
+                return;
+            }
 
-    #region PUBLIC METHODS
-    public void TriggerAnimationEvent(AnimationEvent animationEvent)
-    {
-        Shoot(false);
-        ChargeShoot(false);
-        HaveBall(false);
-    }
+            _inputX = Input.GetAxis("Horizontal");
+            _inputZ = Input.GetAxis("Vertical");
 
-    public void HaveBall(bool action)
-    {
-        animator.SetBool("HaveBall", action);
+            _animator.SetFloat("InputX", _inputX, 0.0f, Time.deltaTime);
+            _animator.SetFloat("InputZ", _inputZ, 0.0f, Time.deltaTime);
+
+            _speed = new Vector2(_inputX, _inputZ).sqrMagnitude;
+
+            if (_speed > _allowPlayerRotation)
+            {
+                _animator.SetFloat("InputMagnitude", _speed, 0.0f, Time.deltaTime);
+                PlayerRotation();
+            }
+            else if (_speed < _allowPlayerRotation)
+            {
+                _animator.SetFloat("InputMagnitude", _speed, 0.0f, Time.deltaTime);
+            }
+        }
+
+        /// <summary>
+        /// Aligns the player's orientation with the input direction.
+        /// It utilizes the main camera's forward and right vectors, creating a desired movement direction.
+        /// The character smoothly rotates using Quaternion.Slerp towards the calculated direction at a specified rotation speed.
+        /// </summary>
+        private void PlayerRotation()
+        {
+            Camera camera = Camera.main;
+            Vector3 forward = camera.transform.forward;
+            Vector3 right = camera.transform.right;
+            forward.y = 0f;
+            right.y = 0f;
+            _desiredMoveDirection = forward * _inputZ + right * _inputX;
+            transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(_desiredMoveDirection), _desiredRotationSpeed);
+        }
+
+        private void ChargeShoot(bool action)
+        {
+            _animator.SetBool("Charge", action);
+            _isCharging = action;
+        }
+
+        private void Shoot(bool action)
+        {
+            _animator.SetBool("Shoot", action);
+            _isCharging = action;
+        }
+        #endregion
+
+        #region PUBLIC METHODS
+        public void TriggerAnimationEvent(AnimationEvent animationEvent)
+        {
+            Shoot(false);
+            ChargeShoot(false);
+            HaveBall(false);
+        }
+
+        public void HaveBall(bool action)
+        {
+            _animator.SetBool("HaveBall", action);
+        }
+        #endregion
     }
-    #endregion
 }
+

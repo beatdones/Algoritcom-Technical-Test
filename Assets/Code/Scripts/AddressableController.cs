@@ -1,36 +1,56 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.ResourceManagement.AsyncOperations;
 
-public class AddressableController : MonoBehaviour
+namespace Algoritcom.TechnicalTest.Addressable
 {
-    [SerializeField] private List<AssetReference> _assetReferences;
-
-    [SerializeField] private List<GameObject> _addressableObjects;
-
-    private GameObject addressableObject;
-
-    private void Awake()
+    public class AddressableController : MonoBehaviour
     {
-        for (int i = 0; i < _assetReferences.Count; i++)
+        [SerializeField] private List<AssetReference> _assetReferences;
+
+        [SerializeField] private List<GameObject> _addressableObjects;
+
+        private GameObject _addressableObject;
+
+
+        private static AddressableController instance;
+        public static AddressableController Instance { get { return instance; } }
+
+        private void Awake()
         {
-            var asyncOperationHandle = _assetReferences[i].InstantiateAsync();
-            asyncOperationHandle.Completed += OnCompleted;
+            CreateSingleton();
+
+
+            for (int i = 0; i < _assetReferences.Count; i++)
+            {
+                var asyncOperationHandle = _assetReferences[i].InstantiateAsync();
+                asyncOperationHandle.Completed += OnCompleted;
+            }
         }
+
+        private void CreateSingleton()
+        {
+            if (instance == null)
+            {
+                instance = this;
+            }
+            else
+            {
+                Destroy(gameObject);
+            }
+        }
+
+        private void OnCompleted(AsyncOperationHandle<GameObject> obj)
+        {
+            _addressableObjects.Add(obj.Result);
+        }
+
+        private void Release()
+        {
+            Addressables.ReleaseInstance(_addressableObject);
+        }
+
     }
-
-    private void OnCompleted(AsyncOperationHandle<GameObject> obj)
-    {
-        _addressableObjects.Add(obj.Result);
-    }
-
-    private void Release()
-    {
-        Addressables.ReleaseInstance(addressableObject);
-    }
-
-
 }
+

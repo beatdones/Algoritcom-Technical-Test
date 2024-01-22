@@ -838,11 +838,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 73756d0fe9b817e45bcead71bf3cf33c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  groundLayer:
+  _groundLayer:
     serializedVersion: 2
-    m_Bits: 256
-  grounded: 0
-  followTarget: {fileID: 3044655855369905890}
+    m_Bits: 0
+  _grounded: 0
+  _followTarget: {fileID: 3044655855369905890}
 --- !u!1 &2795480710447459508
 GameObject:
   m_ObjectHideFlags: 0
@@ -2115,7 +2115,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b12d691296af4f34f802109fd42a0f46, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tagName: Ball
+  _tagName: 
   OnBallEnterTrigger:
     m_PersistentCalls:
       m_Calls:

@@ -1,21 +1,22 @@
 using Cinemachine;
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class FreeCameraReferences : MonoBehaviour
+namespace Algoritcom.TechnicalTest.Character
 {
-    [SerializeField] private CinemachineFreeLook cinemachineFreeLook;
-
-    private void Start()
+    public class FreeCameraReferences : MonoBehaviour
     {
-        CharacterController.OnPlayerIsInstantiate += CameraReference;
+        [SerializeField] private CinemachineFreeLook _cinemachineFreeLook;
+
+        private void Start()
+        {
+            CharacterController.OnPlayerIsInstantiate += CameraReference;
+        }
+
+        private void CameraReference(Transform followTarget)
+        {
+            _cinemachineFreeLook.Follow = followTarget;
+            _cinemachineFreeLook.LookAt = followTarget;
+        }
     }
 
-    private void CameraReference(Transform followTarget)
-    {
-        cinemachineFreeLook.Follow = followTarget;
-        cinemachineFreeLook.LookAt = followTarget;
-    }
 }
