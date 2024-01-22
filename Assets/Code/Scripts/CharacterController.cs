@@ -17,10 +17,10 @@ public class CharacterController : MonoBehaviour
     private float speed = 1.0f;
     private float allowPlayerRotation = 0.0f;
     private bool isShooting;
+    private bool isCharging;
 
     [SerializeField] private LayerMask groundLayer;
-    [SerializeField] private bool grounded = false;
-    private object followtransform;
+    [SerializeField] private bool grounded;
     #endregion
 
     #region UNITY METHODS
@@ -32,9 +32,9 @@ public class CharacterController : MonoBehaviour
 
     private void Update()
     {
-        InputMagnitude(); //Desplacamientos y rotaciones
-        if (Input.GetButton("Fire2") && !isShooting) ChargeShoot();
-        if (Input.GetButton("Fire1")) Shoot();
+        InputMagnitude(); //Movements & rotations
+        if (Input.GetButton("Fire2") && !isShooting) ChargeShoot(true);
+        if (Input.GetButton("Fire1")) Shoot(true);
     }
 
     private void FixedUpdate()
@@ -59,12 +59,19 @@ public class CharacterController : MonoBehaviour
     }
 
     /// <summary>
-    /// Sets input values based on the horizontal and vertical axes.
-    /// It updates the animator parameters, calculates speed, and adjusts the character's rotation if the speed surpasses a threshold.
-    /// The method ensures smooth transitions in the animation while handling player rotation conditions.
+    /// Manages player input for movement and rotation.
+    /// It sets animator parameters based on input values, calculates speed, and triggers player rotation if the speed exceeds a threshold.
+    /// If the character is charging, it resets input parameters and exits the method.
     /// </summary>
     private void InputMagnitude()
     {
+        if (isCharging)
+        {
+            animator.SetFloat("InputX", 0, 0.0f, Time.deltaTime);
+            animator.SetFloat("InputZ", 0, 0.0f, Time.deltaTime);
+            return;
+        }
+
         inputX = Input.GetAxis("Horizontal");
         inputZ = Input.GetAxis("Vertical");
 
@@ -91,32 +98,6 @@ public class CharacterController : MonoBehaviour
     /// </summary>
     private void PlayerRotation()
     {
-        //followtransform.transform.rotation *= Quaternion.AngleAxis(_look.x * rotationpower, vector3.up);
-
-        //followtransform.transform.rotation *= Quaternion.angleaxis(_look.y * rotationpower, vector3.right);
-
-        //var angles = followtransform.transform.localeulerangles;
-        //angles.z = 0;
-
-        //var angle = followtransform.transform.localeulerangles.x;
-
-        ////clamp the up/down rotation
-        //if (angle > 180 && angle < 340)
-        //{
-        //    angles.x = 340;
-        //}
-        //else if (angle < 180 && angle > 40)
-        //{
-        //    angles.x = 40;
-        //}
-
-        //followtransform.transform.localeulerangles = angles;
-
-        //nextrotation = quaternion.lerp(followtransform.transform.rotation, nextrotation, time.deltatime * rotationlerp);
-
-
-
-
         Camera camera = Camera.main;
         Vector3 forward = camera.transform.forward;
         Vector3 right = camera.transform.right;
@@ -126,14 +107,30 @@ public class CharacterController : MonoBehaviour
         transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(desiredMoveDirection), desiredRotationSpeed);
     }
 
-    private void ChargeShoot()
+    private void ChargeShoot(bool action)
     {
-        animator.SetBool("Charge", true);
+        animator.SetBool("Charge", action);
+        isCharging = action;
     }
 
-    private void Shoot()
+    private void Shoot(bool action)
     {
-        animator.SetBool("Shoot", true);
+        animator.SetBool("Shoot", action);
+        isCharging = action;
+    }
+    #endregion
+
+    #region PUBLIC METHODS
+    public void TriggerAnimationEvent(AnimationEvent animationEvent)
+    {
+        Shoot(false);
+        ChargeShoot(false);
+        HaveBall(false);
+    }
+
+    public void HaveBall(bool action)
+    {
+        animator.SetBool("HaveBall", action);
     }
     #endregion
 }
