@@ -6,7 +6,7 @@ using UnityEngine.Events;
 
 namespace Algoritcom.TechnicalTest.Timer
 {
-    public class Timer : MonoBehaviour
+    public class TimerController : MonoBehaviour
     {
         [SerializeField] private TMP_Text timerText;
 
@@ -17,6 +17,8 @@ namespace Algoritcom.TechnicalTest.Timer
 
         public UnityEvent TimeOverEvent;
 
+        private static bool gameIsStarted;
+
         private void Start()
         {
             currentTime = timerTime;
@@ -24,7 +26,7 @@ namespace Algoritcom.TechnicalTest.Timer
 
         private void Update()
         {
-            if(!timeOver) DecreaseTime();
+            if(!timeOver && gameIsStarted) DecreaseTime();
         }
 
         private void DecreaseTime()
@@ -47,6 +49,11 @@ namespace Algoritcom.TechnicalTest.Timer
         public void ResetTime()
         {
             currentTime = timerTime;
+        }
+
+        public void SetGameIsStarted(bool value)
+        {
+            gameIsStarted = value;
         }
     }
 

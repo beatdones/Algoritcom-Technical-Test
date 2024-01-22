@@ -5,16 +5,18 @@ using TMPro;
 
 namespace Algoritcom.TechnicalTest.Chronometer
 {
-    public class Chronometer : MonoBehaviour
+    public class ChronometerController : MonoBehaviour
     {
         [SerializeField] private TMP_Text chronometerText;
 
         private float timeElapsed;
         private int minutes, seconds, cents;
 
+        private static bool gameIsStarted;
+
         private void Update()
         {
-            IncreaseTime();
+            if(gameIsStarted) IncreaseTime();
         }
 
         private void IncreaseTime()
@@ -31,6 +33,11 @@ namespace Algoritcom.TechnicalTest.Chronometer
         public void ResetTime()
         {
             timeElapsed = 0f;
+        }
+
+        public void SetGameIsStarted(bool value)
+        {
+            gameIsStarted = value;
         }
     }
 

@@ -6,11 +6,10 @@ namespace Algoritcom.TechnicalTest.BallSpawn
 {
     public class BasketBall : MonoBehaviour
     {
-
-        public void DisabledBall()
-        {
-            gameObject.SetActive(false);
-        }
+        //public void DisabledBall()
+        //{
+        //    gameObject.SetActive(false);
+        //}
     }
 }
 

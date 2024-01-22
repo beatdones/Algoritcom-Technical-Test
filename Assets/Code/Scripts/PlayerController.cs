@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Algoritcom.TechnicalTest.Character
 {
-    public class CharacterController : MonoBehaviour
+    public class PlayerController : MonoBehaviour
     {
         #region VARIABLES
         private float _inputZ;
@@ -20,6 +20,7 @@ namespace Algoritcom.TechnicalTest.Character
         private float _allowPlayerRotation = 0.0f;
         private bool _isShooting;
         private bool _isCharging;
+        private bool _isHaveBall;
 
         [SerializeField] private LayerMask _groundLayer;
         [SerializeField] private bool _grounded;
@@ -28,6 +29,9 @@ namespace Algoritcom.TechnicalTest.Character
 
         public delegate void PlayerIsInstantiate(Transform followTarget);
         public static event PlayerIsInstantiate OnPlayerIsInstantiate;
+
+        public delegate void PlayerShoot();
+        public static event PlayerShoot OnPlayerShoot;
         #endregion
 
         #region UNITY METHODS
@@ -42,8 +46,8 @@ namespace Algoritcom.TechnicalTest.Character
         private void Update()
         {
             InputMagnitude(); //Movements & rotations
-            if (Input.GetButton("Fire2") && !_isShooting) ChargeShoot(true);
-            if (Input.GetButton("Fire1")) Shoot(true);
+            if (Input.GetButton("Fire2") && !_isShooting && _isHaveBall) ChargeShoot(true);
+            if (Input.GetButton("Fire1") && _isCharging && _isHaveBall) Shoot(true);
         }
 
         private void FixedUpdate()
@@ -126,6 +130,9 @@ namespace Algoritcom.TechnicalTest.Character
         {
             _animator.SetBool("Shoot", action);
             _isCharging = action;
+            _isHaveBall = action;
+            OnPlayerShoot.Invoke();
+
         }
         #endregion
 
@@ -140,6 +147,7 @@ namespace Algoritcom.TechnicalTest.Character
         public void HaveBall(bool action)
         {
             _animator.SetBool("HaveBall", action);
+            _isHaveBall = action;
         }
         #endregion
     }

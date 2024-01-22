@@ -15,6 +15,7 @@ namespace Algoritcom.TechnicalTest.BallSpawn
 
         [SerializeField] private List<GameObject> _pool;
 
+
         private static BallPool instance;
         public static BallPool Instance { get { return instance; } }
         #endregion
@@ -73,16 +74,11 @@ namespace Algoritcom.TechnicalTest.BallSpawn
         private void AddBallsToPool(GameObject obj)
         {
             _pool.Add(obj);
-            obj.transform.parent = transform;
+            //obj.transform.parent = transform;
         }
         #endregion
 
         #region PUBLIC METHODS
-        public void TestRequestBall()
-        {
-            RequestBall();
-        }
-
         public GameObject RequestBall()
         {
             for (int i = 0; i < _pool.Count; i++)

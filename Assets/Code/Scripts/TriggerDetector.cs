@@ -12,6 +12,7 @@ public class TriggerDetector : MonoBehaviour
         if(other.tag == _tagName)
         {
             OnBallEnterTrigger.Invoke();
+            other.gameObject.SetActive(false);
         }
     }
 }

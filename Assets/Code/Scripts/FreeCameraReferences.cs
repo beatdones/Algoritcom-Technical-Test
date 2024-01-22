@@ -9,7 +9,7 @@ namespace Algoritcom.TechnicalTest.Character
 
         private void Start()
         {
-            CharacterController.OnPlayerIsInstantiate += CameraReference;
+            PlayerController.OnPlayerIsInstantiate += CameraReference;
         }
 
         private void CameraReference(Transform followTarget)

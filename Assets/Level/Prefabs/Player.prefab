@@ -840,7 +840,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _groundLayer:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 256
   _grounded: 0
   _followTarget: {fileID: 3044655855369905890}
 --- !u!1 &2795480710447459508
@@ -2115,25 +2115,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b12d691296af4f34f802109fd42a0f46, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _tagName: 
+  _tagName: Ball
   OnBallEnterTrigger:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 8875011530614729602}
         m_TargetAssemblyTypeName: CharacterController, Assembly-CSharp
         m_MethodName: HaveBall
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 1
-        m_CallState: 2
-      - m_Target: {fileID: 8198665127042794814}
-        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-        m_MethodName: SetActive
         m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2532,10 +2520,5 @@ PrefabInstance:
 --- !u!4 &8021316417952516756 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 886494560647922004, guid: 20dd3377ef888144b92c96ddba029691, type: 3}
-  m_PrefabInstance: {fileID: 7141590615324478400}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &8198665127042794814 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1358825591354756862, guid: 20dd3377ef888144b92c96ddba029691, type: 3}
   m_PrefabInstance: {fileID: 7141590615324478400}
   m_PrefabAsset: {fileID: 0}
