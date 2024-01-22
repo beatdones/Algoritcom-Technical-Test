@@ -20,6 +20,7 @@ public class CharacterController : MonoBehaviour
 
     [SerializeField] private LayerMask groundLayer;
     [SerializeField] private bool grounded = false;
+    private object followtransform;
     #endregion
 
     #region UNITY METHODS
@@ -90,6 +91,32 @@ public class CharacterController : MonoBehaviour
     /// </summary>
     private void PlayerRotation()
     {
+        //followtransform.transform.rotation *= Quaternion.AngleAxis(_look.x * rotationpower, vector3.up);
+
+        //followtransform.transform.rotation *= Quaternion.angleaxis(_look.y * rotationpower, vector3.right);
+
+        //var angles = followtransform.transform.localeulerangles;
+        //angles.z = 0;
+
+        //var angle = followtransform.transform.localeulerangles.x;
+
+        ////clamp the up/down rotation
+        //if (angle > 180 && angle < 340)
+        //{
+        //    angles.x = 340;
+        //}
+        //else if (angle < 180 && angle > 40)
+        //{
+        //    angles.x = 40;
+        //}
+
+        //followtransform.transform.localeulerangles = angles;
+
+        //nextrotation = quaternion.lerp(followtransform.transform.rotation, nextrotation, time.deltatime * rotationlerp);
+
+
+
+
         Camera camera = Camera.main;
         Vector3 forward = camera.transform.forward;
         Vector3 right = camera.transform.right;
