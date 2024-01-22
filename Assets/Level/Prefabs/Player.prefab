@@ -842,6 +842,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 256
   grounded: 0
+  followTarget: {fileID: 3044655855369905890}
 --- !u!1 &2795480710447459508
 GameObject:
   m_ObjectHideFlags: 0

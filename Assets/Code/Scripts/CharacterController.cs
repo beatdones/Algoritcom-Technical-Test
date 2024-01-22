@@ -21,6 +21,11 @@ public class CharacterController : MonoBehaviour
 
     [SerializeField] private LayerMask groundLayer;
     [SerializeField] private bool grounded;
+
+    [SerializeField] private Transform followTarget;
+
+    public delegate void PlayerIsInstantiate(Transform followTarget);
+    public static event PlayerIsInstantiate OnPlayerIsInstantiate;
     #endregion
 
     #region UNITY METHODS
@@ -28,6 +33,8 @@ public class CharacterController : MonoBehaviour
     {
         animator = GetComponent<Animator>();
         collider = GetComponent<CapsuleCollider>();
+
+        OnPlayerIsInstantiate.Invoke(followTarget);
     }
 
     private void Update()
