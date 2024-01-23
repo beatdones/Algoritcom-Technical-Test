@@ -93,8 +93,6 @@ namespace Algoritcom.TechnicalTest.BallSpawn
             return null;
         }
         #endregion
-
-        
     }
 
 }

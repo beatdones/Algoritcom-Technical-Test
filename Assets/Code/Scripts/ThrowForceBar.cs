@@ -9,42 +9,53 @@ namespace Algoritcom.TechnicalTest.Ball
     {
         [SerializeField] private Image powerBar;
 
-        [SerializeField] private float power, maxPower;
+        [SerializeField] private float power;
+        [SerializeField] private const float maxPower = 100f;
 
         [SerializeField] private float powerCost;
 
         private bool emptyBar, fullBar;
 
+        private Camera mainCamera;
+
+        private void Start()
+        {
+            mainCamera = Camera.main;
+        }
 
 
         private void Update()
         {
-            GetCurrentFill();
+            CheckPowerBarStatus();
+            DrawPowerBarProgress();
+        }
+        private void LateUpdate()
+        {
+            transform.LookAt(transform.position + mainCamera.transform.forward);
         }
 
-        private void GetCurrentFill()
+        private void CheckPowerBarStatus()
         {
-            if (power >= maxPower)
+            switch (power)
             {
-                emptyBar = false;
-                fullBar = true;
-                power = maxPower;
-            }
-            else if(power <= 0)
-            {
-                emptyBar = true;
-                fullBar = false;
-                power = 0;
-            }
+                case  >= maxPower:
+                    emptyBar = false;
+                    fullBar = true;
+                    power = maxPower;
+                    break;
 
-            if (emptyBar)
-            {
-                power += powerCost * Time.deltaTime;
+                case <= 0:
+                    emptyBar = true;
+                    fullBar = false;
+                    power = 0;
+                    break;
             }
-            else if (fullBar)
-            {
-                power -= powerCost * Time.deltaTime;
-            }
+        }
+
+        private void DrawPowerBarProgress()
+        {
+            if (emptyBar) power += powerCost * Time.deltaTime;
+            if (fullBar)  power -= powerCost * Time.deltaTime;
 
             powerBar.fillAmount = power / maxPower;
         }

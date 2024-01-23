@@ -14,7 +14,7 @@ namespace Algoritcom.TechnicalTest.Character
         private Vector3 _desiredMoveDirection;
 
         private CapsuleCollider _collider;
-
+        
         private Animator _animator;
         private float _speed = 1.0f;
         private float _allowPlayerRotation = 0.0f;
@@ -52,7 +52,9 @@ namespace Algoritcom.TechnicalTest.Character
         private void Update()
         {
             InputMagnitude();
-            if (Input.GetButton("Fire1") && _isHaveBall) Shoot(true);
+            
+            // Todo cambiar el sistema de tiro para mantener aparece el powerbar y al soltar lanza la bola.
+            if (Input.GetButton("Fire1") && _isHaveBall) Shoot(true); 
         }
 
         private void FixedUpdate()
