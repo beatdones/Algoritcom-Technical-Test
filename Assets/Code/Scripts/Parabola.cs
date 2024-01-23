@@ -1,5 +1,6 @@
 using UnityEngine;
 
+
 public class Parabola : MonoBehaviour
 {
     public Transform startPoint;
