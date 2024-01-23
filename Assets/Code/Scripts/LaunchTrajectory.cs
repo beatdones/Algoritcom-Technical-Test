@@ -34,7 +34,7 @@ namespace Algoritcom.TechnicalTest.Ball
             _parabola.KinematicMovement(true);
             _parabola.Shooting(true);
 
-            Invoke("Disable", 2f);
+            Invoke("Disable", 5f);
         }
 
         private void Disable()

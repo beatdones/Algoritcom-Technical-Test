@@ -8,6 +8,8 @@ public class Parabola : MonoBehaviour
     // Time to move from hand to basketboard position, in seconds.
     [SerializeField] private float ballFlyingTime;
 
+    private float currentFlyingTime;
+
 
     [SerializeField] private float helperVelocity;
 
@@ -47,7 +49,7 @@ public class Parabola : MonoBehaviour
         distance = Vector3.Distance(startPoint.position, endPoint.position);
         //distance = (startPoint.position - endPoint.position).sqrMagnitude; // mas rápido de calcular y menos pesado
 
-        ballFlyingTime = ballFlyingTime * distance;
+        currentFlyingTime = ballFlyingTime * distance;
     }
 
     private void MoveBall()
@@ -70,7 +72,7 @@ public class Parabola : MonoBehaviour
             // The fraction of the animation that has happened so far is
             // equal to the elapsed time divided by the desired time for
             // the total flying.
-            float fracComplete = (Time.time - startTime) / ballFlyingTime;
+            float fracComplete = (Time.time - startTime) / currentFlyingTime;
 
             transform.position = Vector3.Slerp(riseRelCenter, setRelCenter, fracComplete);
             transform.position += center;
@@ -81,7 +83,7 @@ public class Parabola : MonoBehaviour
             {
                 KinematicMovement(false);
                 rb.velocity = new Vector3(RandomInt(), -2, RandomInt());
-
+                Shooting(false);
             }
         }
         

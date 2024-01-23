@@ -143,5 +143,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   startPoint: {fileID: 886494560647922004}
-  ballFlyingTime: 2
-  helperVelocity: 2
+  ballFlyingTime: 0.5
+  helperVelocity: 0.25
