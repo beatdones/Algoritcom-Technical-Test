@@ -10,6 +10,8 @@ namespace Algoritcom.TechnicalTest.Ball
     {
         [SerializeField] private Rigidbody _rigidbody;
 
+        [SerializeField] private Parabola _parabola;
+
         private float _throwingForce = .01f;
 
         private void OnEnable()
@@ -27,15 +29,16 @@ namespace Algoritcom.TechnicalTest.Ball
 
         private void Impluse()
         {
-            _rigidbody.AddForce(transform.forward * _throwingForce, ForceMode.Impulse);
+
+            _parabola.CalculateFlyingTime();
+            _parabola.KinematicMovement(true);
+            _parabola.Shooting(true);
+
             Invoke("Disable", 2f);
         }
 
         private void Disable()
         {
-            _rigidbody.velocity = Vector3.zero;
-            _rigidbody.angularVelocity = Vector3.zero;
-
             gameObject.SetActive(false);
             GameObject ball = BallPool.Instance.RequestBall();
         }

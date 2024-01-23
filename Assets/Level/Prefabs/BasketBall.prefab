@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 5659091400214914066}
   - component: {fileID: 1358825591354756849}
   - component: {fileID: 6721059512012649992}
+  - component: {fileID: 4092555388244270642}
   m_Layer: 0
   m_Name: BasketBall
   m_TagString: Ball
@@ -128,3 +129,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _rigidbody: {fileID: 1358825591354756849}
+  _parabola: {fileID: 4092555388244270642}
+--- !u!114 &4092555388244270642
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1358825591354756862}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2829980e0e9f8d845b127b02e52c16f4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  startPoint: {fileID: 886494560647922004}
+  ballFlyingTime: 2
+  helperVelocity: 2

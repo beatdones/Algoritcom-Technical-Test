@@ -897,7 +897,7 @@ GameObject:
   - component: {fileID: 4569694552248658463}
   - component: {fileID: 8657108618361698066}
   m_Layer: 0
-  m_Name: Circle
+  m_Name: EndPoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
