@@ -19,11 +19,14 @@ namespace Algoritcom.TechnicalTest.Character
         private float _speed = 1.0f;
         private float _allowPlayerRotation = 0.0f;
         private bool _isShooting;
-        private bool _isCharging;
         private bool _isHaveBall;
+
+        private GameObject ball;
 
         [SerializeField] private LayerMask _groundLayer;
         [SerializeField] private bool _grounded;
+
+
 
         [SerializeField] private Transform _followTarget;
 
@@ -45,9 +48,8 @@ namespace Algoritcom.TechnicalTest.Character
 
         private void Update()
         {
-            InputMagnitude(); //Movements & rotations
-            if (Input.GetButton("Fire2") && !_isShooting && _isHaveBall) ChargeShoot(true);
-            if (Input.GetButton("Fire1") && _isCharging && _isHaveBall) Shoot(true);
+            InputMagnitude();
+            if (Input.GetButton("Fire1") && _isHaveBall) Shoot(true);
         }
 
         private void FixedUpdate()
@@ -78,13 +80,6 @@ namespace Algoritcom.TechnicalTest.Character
         /// </summary>
         private void InputMagnitude()
         {
-            if (_isCharging)
-            {
-                _animator.SetFloat("InputX", 0, 0.0f, Time.deltaTime);
-                _animator.SetFloat("InputZ", 0, 0.0f, Time.deltaTime);
-                return;
-            }
-
             _inputX = Input.GetAxis("Horizontal");
             _inputZ = Input.GetAxis("Vertical");
 
@@ -120,19 +115,10 @@ namespace Algoritcom.TechnicalTest.Character
             transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(_desiredMoveDirection), _desiredRotationSpeed);
         }
 
-        private void ChargeShoot(bool action)
-        {
-            _animator.SetBool("Charge", action);
-            _isCharging = action;
-        }
-
         private void Shoot(bool action)
         {
             _animator.SetBool("Shoot", action);
-            _isCharging = action;
-            _isHaveBall = action;
             OnPlayerShoot.Invoke();
-
         }
         #endregion
 
@@ -140,12 +126,11 @@ namespace Algoritcom.TechnicalTest.Character
         public void TriggerAnimationEvent(AnimationEvent animationEvent)
         {
             Shoot(false);
-            ChargeShoot(false);
             HaveBall(false);
         }
 
         public void HaveBall(bool action)
-        {
+      {
             _animator.SetBool("HaveBall", action);
             _isHaveBall = action;
         }

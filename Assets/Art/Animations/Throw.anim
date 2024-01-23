@@ -66022,8 +66022,8 @@ AnimationClip:
   m_Events:
   - time: 2.1333334
     functionName: TriggerAnimationEvent
-    data: COCOPUTO
-    objectReferenceParameter: {fileID: 0}
+    data: 
+    objectReferenceParameter: {fileID: 11500000, guid: 73756d0fe9b817e45bcead71bf3cf33c, type: 3}
     floatParameter: 0
     intParameter: 0
     messageOptions: 0

@@ -1,3 +1,4 @@
+using Algoritcom.TechnicalTest.Ball;
 using System;
 using System.Collections.Generic;
 using UnityEditor;
@@ -74,7 +75,6 @@ namespace Algoritcom.TechnicalTest.BallSpawn
         private void AddBallsToPool(GameObject obj)
         {
             _pool.Add(obj);
-            //obj.transform.parent = transform;
         }
         #endregion
 

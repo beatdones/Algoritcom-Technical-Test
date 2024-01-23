@@ -31,7 +31,7 @@ namespace Algoritcom.TechnicalTest.GameManager
         private void RespawnBall()
         {
             GameObject ball = BallPool.Instance.RequestBall();
-            ball.transform.position = BallPool.Instance.gameObject.transform.position;
+            //ball.transform.position = BallPool.Instance.gameObject.transform.position;
         }
     }
 }
