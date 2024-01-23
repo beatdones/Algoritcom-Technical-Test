@@ -86,10 +86,10 @@ namespace Algoritcom.TechnicalTest.BallSpawn
                 if (!_pool[i].activeSelf)
                 {
                     BallEnabledOrDisabled(_pool[i], true);
+                    _pool[i].transform.position = gameObject.transform.position;
                     return _pool[i];
                 }
             }
-
             return null;
         }
         #endregion

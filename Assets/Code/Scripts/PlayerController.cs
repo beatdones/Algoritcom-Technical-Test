@@ -18,13 +18,15 @@ namespace Algoritcom.TechnicalTest.Character
         private Animator _animator;
         private float _speed = 1.0f;
         private float _allowPlayerRotation = 0.0f;
-        private bool _isShooting;
         private bool _isHaveBall;
 
         private GameObject ball;
 
+
         [SerializeField] private LayerMask _groundLayer;
         [SerializeField] private bool _grounded;
+
+        [SerializeField] private Transform _throwPoint;
 
 
 
@@ -33,7 +35,7 @@ namespace Algoritcom.TechnicalTest.Character
         public delegate void PlayerIsInstantiate(Transform followTarget);
         public static event PlayerIsInstantiate OnPlayerIsInstantiate;
 
-        public delegate void PlayerShoot();
+        public delegate void PlayerShoot(Transform _throwPoint);
         public static event PlayerShoot OnPlayerShoot;
         #endregion
 
@@ -44,6 +46,7 @@ namespace Algoritcom.TechnicalTest.Character
             _collider = GetComponent<CapsuleCollider>();
 
             OnPlayerIsInstantiate.Invoke(_followTarget);
+            TriggerDetector.OnBallEnterEvent += HaveBall;
         }
 
         private void Update()
@@ -118,7 +121,11 @@ namespace Algoritcom.TechnicalTest.Character
         private void Shoot(bool action)
         {
             _animator.SetBool("Shoot", action);
-            OnPlayerShoot.Invoke();
+        }
+
+        private void HaveBall(GameObject ball)
+        {
+            this.ball = ball;
         }
         #endregion
 
@@ -130,9 +137,15 @@ namespace Algoritcom.TechnicalTest.Character
         }
 
         public void HaveBall(bool action)
-      {
+        {
             _animator.SetBool("HaveBall", action);
             _isHaveBall = action;
+        }
+
+        public void ThrowBall()
+        {
+            ball.SetActive(true);
+            OnPlayerShoot.Invoke(_throwPoint);
         }
         #endregion
     }

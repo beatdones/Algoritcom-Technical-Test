@@ -17,7 +17,6 @@ namespace Algoritcom.TechnicalTest.GameManager
         private void Start()
         {
             Invoke("StartGame", 2f);
-            PlayerController.OnPlayerShoot += RespawnBall;
         }
 
         private void StartGame()
@@ -28,11 +27,6 @@ namespace Algoritcom.TechnicalTest.GameManager
             chronometer.SetGameIsStarted(true);
         }
 
-        private void RespawnBall()
-        {
-            GameObject ball = BallPool.Instance.RequestBall();
-            //ball.transform.position = BallPool.Instance.gameObject.transform.position;
-        }
     }
 }
 

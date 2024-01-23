@@ -1,3 +1,4 @@
+using Algoritcom.TechnicalTest.BallSpawn;
 using Algoritcom.TechnicalTest.Character;
 using System.Collections;
 using System.Collections.Generic;
@@ -7,28 +8,44 @@ namespace Algoritcom.TechnicalTest.Ball
 {
     public class LaunchTrajectory : MonoBehaviour
     {
-        [SerializeField] private float _maximumStrength = 10f;
-        [SerializeField] private float _maximumDistance = 20f;
-        [SerializeField] private float _throwDuration = 2f;
+        [SerializeField] private Rigidbody _rigidbody;
 
-        [SerializeField, Tooltip("Maximum error perventage")] private float _maximumErrorFactor = 0.2f;
+        private float _throwingForce = .01f;
 
-        private Transform _tarjet;
-
-        private void Start()
+        private void OnEnable()
         {
-            PlayerController.OnPlayerShoot += Throw;
+            PlayerController.OnPlayerShoot += Resetposition;
         }
 
-        private void Throw()
+        private void Resetposition(Transform newPosition)
         {
-            GetComponent<Rigidbody>().velocity = transform.up * _maximumStrength;
+            transform.position = newPosition.position;
+            transform.forward = newPosition.forward;
+
+            Impluse();
         }
 
-        public void SetTarget(Transform target)
+        private void Impluse()
         {
-            _tarjet = target;
+            _rigidbody.AddForce(transform.forward * _throwingForce, ForceMode.Impulse);
+            Invoke("Disable", 2f);
         }
+
+        private void Disable()
+        {
+            _rigidbody.velocity = Vector3.zero;
+            _rigidbody.angularVelocity = Vector3.zero;
+
+            gameObject.SetActive(false);
+            GameObject ball = BallPool.Instance.RequestBall();
+        }
+
+        public void SetThrowingForce(float throwingForce)
+        {
+            _throwingForce = throwingForce;
+        }
+
+       
     }
 }
 
