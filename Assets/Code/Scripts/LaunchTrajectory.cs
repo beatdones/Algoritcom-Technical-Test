@@ -14,6 +14,7 @@ namespace Algoritcom.TechnicalTest.Ball
 
         private float _throwingForce = .01f;
 
+
         private void OnEnable()
         {
             PlayerController.OnPlayerShoot += Resetposition;
@@ -24,15 +25,12 @@ namespace Algoritcom.TechnicalTest.Ball
             transform.position = newPosition.position;
             transform.forward = newPosition.forward;
 
-            Impluse();
+            Impulse();
         }
 
-        private void Impluse()
+        private void Impulse()
         {
-
-            _parabola.CalculateFlyingTime();
-            _parabola.KinematicMovement(true);
-            _parabola.Shooting(true);
+            _rigidbody.velocity = transform.forward * 10;
 
             Invoke("Disable", 5f);
         }
