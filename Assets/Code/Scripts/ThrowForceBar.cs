@@ -13,9 +13,9 @@ namespace Algoritcom.TechnicalTest.Ball
 
         [SerializeField] private float power;
 
-        [SerializeField] private const float maxPower = 15f;
-
         [SerializeField] private float powerCost;
+
+        private const float maxPower = 15f;
 
         private bool emptyBar, fullBar;
 

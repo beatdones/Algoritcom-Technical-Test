@@ -7,37 +7,37 @@ namespace Algoritcom.TechnicalTest.Chronometer
 {
     public class ChronometerController : MonoBehaviour
     {
-        [SerializeField] private TMP_Text chronometerText;
+        [SerializeField] private TMP_Text _chronometerText;
 
-        private float timeElapsed;
-        private int minutes, seconds, cents;
+        private float _timeElapsed;
+        private int _minutes, _seconds, _cents;
 
-        private static bool gameIsStarted;
+        private static bool _gameIsStarted;
 
         private void Update()
         {
-            if(gameIsStarted) IncreaseTime();
+            if(_gameIsStarted) IncreaseTime();
         }
 
         private void IncreaseTime()
         {
-            timeElapsed += Time.deltaTime;
+            _timeElapsed += Time.deltaTime;
 
-            minutes = (int)(timeElapsed / 60f);
-            seconds = (int)(timeElapsed - minutes * 60f);
-            cents = (int)((timeElapsed - (int)timeElapsed) * 100f);
+            _minutes = (int)(_timeElapsed / 60f);
+            _seconds = (int)(_timeElapsed - _minutes * 60f);
+            _cents = (int)((_timeElapsed - (int)_timeElapsed) * 100f);
 
-            chronometerText.text = string.Format("{0:00}:{1:00}:{2:00}", minutes, seconds, cents);
+            _chronometerText.text = string.Format("{0:00}:{1:00}:{2:00}", _minutes, _seconds, _cents);
         }
 
         public void ResetTime()
         {
-            timeElapsed = 0f;
+            _timeElapsed = 0f;
         }
 
         public void SetGameIsStarted(bool value)
         {
-            gameIsStarted = value;
+            _gameIsStarted = value;
         }
     }
 

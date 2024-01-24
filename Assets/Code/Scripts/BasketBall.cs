@@ -2,45 +2,54 @@ using Algoritcom.TechnicalTest.BallSpawn;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
-public class BasketBall : MonoBehaviour
+namespace Algoritcom.TechnicalTest.Ball
 {
-    [SerializeField] private string _tagName;
-
-    private bool isDestroyed;
-    private bool wasLaunched;
-
-    public bool WasLaunched { set { wasLaunched = value; } }
-
-    private void OnEnable()
+    public class BasketBall : MonoBehaviour
     {
-        ResetBallValues();
-    }
+        [SerializeField] private string _tagName;
 
-    private void OnCollisionEnter(Collision collision)
-    {
-        if (collision.collider.CompareTag(_tagName) && wasLaunched)
+        private bool isDestroyed;
+        private bool wasLaunched;
+
+        public bool WasLaunched { set { wasLaunched = value; } }
+
+        public UnityEvent OnColisionEvent;
+
+        private void OnEnable()
         {
-            if (isDestroyed) return;
+            ResetBallValues();
+        }
 
-            Invoke("Disable", 5f);
-            GameObject ball = BallPool.Instance.RequestBall();
-            isDestroyed = true;
+        private void OnCollisionEnter(Collision collision)
+        {
+            if (collision.collider.CompareTag(_tagName) && wasLaunched)
+            {
+                if (isDestroyed) return;
+
+                Invoke("Disable", 5f);
+                GameObject ball = BallPool.Instance.RequestBall();
+                isDestroyed = true;
+                wasLaunched = false;
+            }
+
+            OnColisionEvent?.Invoke();
+        }
+
+        private void Disable()
+        {
+            gameObject.SetActive(false);
+        }
+
+        private void ResetBallValues()
+        {
             wasLaunched = false;
+            isDestroyed = false;
+            Rigidbody rb = GetComponent<Rigidbody>();
+            rb.velocity = Vector3.zero;
+            rb.angularVelocity = Vector3.zero;
         }
     }
-
-    private void Disable()
-    {
-        gameObject.SetActive(false);
-    }
-
-    private void ResetBallValues()
-    {
-        wasLaunched = false;
-        isDestroyed = false;
-        Rigidbody rb = GetComponent<Rigidbody>();
-        rb.velocity = Vector3.zero;
-        rb.angularVelocity = Vector3.zero;
-    }
 }
+

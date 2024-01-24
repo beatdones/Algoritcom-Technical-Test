@@ -1440,7 +1440,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -15.392029, y: -11.733}
+  m_AnchoredPosition: {x: -15.39209, y: -11.733}
   m_SizeDelta: {x: 200, y: 53.333}
   m_Pivot: {x: 1, y: 1}
 --- !u!114 &1006048680
@@ -1632,6 +1632,7 @@ GameObject:
   - component: {fileID: 1207354476}
   - component: {fileID: 1207354477}
   - component: {fileID: 1207354478}
+  - component: {fileID: 1207354480}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -1701,7 +1702,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 12837a2f437d7204fa893fd5bb9e7609, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  chronometerText: {fileID: 631896453}
+  _chronometerText: {fileID: 631896453}
 --- !u!114 &1207354478
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1714,8 +1715,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4aacd9d91ff712b4f86d8fea88ac9de9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  timerText: {fileID: 1775256375}
-  timerTime: 24
+  _timerText: {fileID: 1775256375}
+  _timerTime: 24
   TimeOverEvent:
     m_PersistentCalls:
       m_Calls: []
@@ -1731,8 +1732,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4e7e1a85278095f4eb7bdd8c4c49511a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  timer: {fileID: 1207354478}
-  chronometer: {fileID: 1207354477}
+  _timer: {fileID: 1207354478}
+  _chronometer: {fileID: 1207354477}
+  _score: {fileID: 1207354480}
+  _amountShootingZone: 0
+--- !u!114 &1207354480
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1207354472}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4e6014e22e350c49bdb5477664ff16c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _scoreText: {fileID: 1006048680}
 --- !u!1 &1491106006
 GameObject:
   m_ObjectHideFlags: 0

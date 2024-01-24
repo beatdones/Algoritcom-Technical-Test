@@ -39,6 +39,9 @@ namespace Algoritcom.TechnicalTest.Character
 
         public delegate void PlayerShoot(Transform _throwPoint, float powerUp);
         public static event PlayerShoot OnPlayerShoot;
+
+        public delegate void PlayerPositionEvent(GameObject player);
+        public static event PlayerPositionEvent OnPlayerPositionEvent;
         #endregion
 
         #region UNITY METHODS
@@ -159,6 +162,7 @@ namespace Algoritcom.TechnicalTest.Character
         {
             ball.SetActive(true);
             OnPlayerShoot.Invoke(_throwPoint, _throwForceBar.Power);
+            OnPlayerPositionEvent?.Invoke(this.gameObject);
         }
         #endregion
     }

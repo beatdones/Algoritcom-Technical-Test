@@ -8,6 +8,8 @@ namespace Algoritcom.TechnicalTest.Score
         [Header("REFERENCES")]
         [SerializeField] public string tagToActivate;
 
+        public static Transform swishPosition;
+
         [Header("Actions")]
         public UnityEvent OnTriggerEnterActions;
         public UnityEvent OnTriggerExitActions;
@@ -15,6 +17,10 @@ namespace Algoritcom.TechnicalTest.Score
         public delegate void TriggerEnterEvent();
         public static event TriggerEnterEvent OnTriggerEnterEvent;
 
+        private void Awake()
+        {
+            swishPosition = this.transform;
+        }
 
         private void OnTriggerEnter(Collider collide)
         {
@@ -42,7 +48,6 @@ namespace Algoritcom.TechnicalTest.Score
 
             return false;
         }
-
 
     }
 }

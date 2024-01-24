@@ -9,54 +9,56 @@ namespace Algoritcom.TechnicalTest.Timer
 {
     public class TimerController : MonoBehaviour
     {
-        [SerializeField] private TMP_Text timerText;
+        [SerializeField] private TMP_Text _timerText;
 
-        [SerializeField, Tooltip("Time in seconds")] private float timerTime;
-        private float currentTime;
-        private int seconds;
-        private bool timeOver;
+        [SerializeField, Tooltip("Time in seconds")] private float _timerTime;
+
+        private float _currentTime;
+        private bool _timeOver;
+
+        private static bool _gameIsStarted;
 
         public UnityEvent TimeOverEvent;
 
-        private static bool gameIsStarted;
 
         private void Start()
         {
-            currentTime = timerTime;
+            _currentTime = _timerTime;
 
             SwishDetector.OnTriggerEnterEvent += ResetTime;
+
         }
 
         private void Update()
         {
-            if(!timeOver && gameIsStarted) DecreaseTime();
+            if(!_timeOver && _gameIsStarted) DecreaseTime();
         }
 
         private void DecreaseTime()
         {
-            currentTime -= Time.deltaTime;
+            _currentTime -= Time.deltaTime;
 
-            if (currentTime < 0) currentTime = 0;
+            if (_currentTime < 0) _currentTime = 0;
 
-            timerText.text = string.Format("{0:00}", currentTime);
+            _timerText.text = string.Format("{0:00}", _currentTime);
 
-            if (currentTime == 0) TimeOver();
+            if (_currentTime == 0) TimeOver();
         }
 
         private void TimeOver()
         {
             TimeOverEvent.Invoke();
-            timeOver = true;
+            _timeOver = true;
         }
 
         private void ResetTime()
         {
-            currentTime = timerTime;
+            _currentTime = _timerTime;
         }
 
         public void SetGameIsStarted(bool value)
         {
-            gameIsStarted = value;
+            _gameIsStarted = value;
         }
     }
 
