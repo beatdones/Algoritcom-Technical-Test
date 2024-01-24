@@ -12,6 +12,11 @@ public class BasketBall : MonoBehaviour
 
     public bool WasLaunched { set { wasLaunched = value; } }
 
+    private void OnEnable()
+    {
+        ResetBallValues();
+    }
+
     private void OnCollisionEnter(Collision collision)
     {
         if (collision.collider.CompareTag(_tagName) && wasLaunched)
@@ -21,11 +26,21 @@ public class BasketBall : MonoBehaviour
             Invoke("Disable", 5f);
             GameObject ball = BallPool.Instance.RequestBall();
             isDestroyed = true;
+            wasLaunched = false;
         }
     }
 
     private void Disable()
     {
         gameObject.SetActive(false);
+    }
+
+    private void ResetBallValues()
+    {
+        wasLaunched = false;
+        isDestroyed = false;
+        Rigidbody rb = GetComponent<Rigidbody>();
+        rb.velocity = Vector3.zero;
+        rb.angularVelocity = Vector3.zero;
     }
 }
