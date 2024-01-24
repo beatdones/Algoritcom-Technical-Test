@@ -1,3 +1,4 @@
+using Algoritcom.TechnicalTest.Ball;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -28,14 +29,15 @@ namespace Algoritcom.TechnicalTest.Character
 
         [SerializeField] private Transform _throwPoint;
 
+        [SerializeField] private ThrowForceBar _throwForceBar;
 
+        [SerializeField] private Transform _cameraFollowTarget;
 
-        [SerializeField] private Transform _followTarget;
 
         public delegate void PlayerIsInstantiate(Transform followTarget);
         public static event PlayerIsInstantiate OnPlayerIsInstantiate;
 
-        public delegate void PlayerShoot(Transform _throwPoint);
+        public delegate void PlayerShoot(Transform _throwPoint, float powerUp);
         public static event PlayerShoot OnPlayerShoot;
         #endregion
 
@@ -45,16 +47,19 @@ namespace Algoritcom.TechnicalTest.Character
             _animator = GetComponent<Animator>();
             _collider = GetComponent<CapsuleCollider>();
 
-            OnPlayerIsInstantiate.Invoke(_followTarget);
+            OnPlayerIsInstantiate.Invoke(_cameraFollowTarget);
             TriggerDetector.OnBallEnterEvent += HaveBall;
         }
 
         private void Update()
         {
             InputMagnitude();
-            
-            // Todo cambiar el sistema de tiro para mantener aparece el powerbar y al soltar lanza la bola.
-            if (Input.GetButton("Fire1") && _isHaveBall) Shoot(true); 
+
+            if (Input.GetButtonDown("Fire1") && _isHaveBall)
+                EnableOrDisableThrowBar(true);
+
+            if(Input.GetButtonUp("Fire1") && _isHaveBall)
+                Shoot(true);
         }
 
         private void FixedUpdate()
@@ -123,11 +128,17 @@ namespace Algoritcom.TechnicalTest.Character
         private void Shoot(bool action)
         {
             _animator.SetBool("Shoot", action);
+            EnableOrDisableThrowBar(false);
         }
 
         private void HaveBall(GameObject ball)
         {
             this.ball = ball;
+        }
+
+        private void EnableOrDisableThrowBar(bool state)
+        {
+            _throwForceBar.gameObject.SetActive(state);
         }
         #endregion
 
@@ -147,7 +158,7 @@ namespace Algoritcom.TechnicalTest.Character
         public void ThrowBall()
         {
             ball.SetActive(true);
-            OnPlayerShoot.Invoke(_throwPoint);
+            OnPlayerShoot.Invoke(_throwPoint, _throwForceBar.Power);
         }
         #endregion
     }

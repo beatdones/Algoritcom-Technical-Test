@@ -921,7 +921,8 @@ MonoBehaviour:
     m_Bits: 256
   _grounded: 0
   _throwPoint: {fileID: 8237063632277776726}
-  _followTarget: {fileID: 3044655855369905890}
+  _throwForceBar: {fileID: 4667560867144826562}
+  _cameraFollowTarget: {fileID: 3044655855369905890}
 --- !u!1 &2795480710447459508
 GameObject:
   m_ObjectHideFlags: 0
@@ -1533,7 +1534,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1283906793859407731
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1630,8 +1631,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   powerBar: {fileID: 813743786624572822}
   power: 0
-  maxPower: 100
-  powerCost: 100
+  powerCost: 15
 --- !u!1 &4626532483587082971
 GameObject:
   m_ObjectHideFlags: 0
@@ -2011,14 +2011,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6684543735360404441}
-  m_LocalRotation: {x: -0.28492826, y: 0.11673983, z: 0.03498477, w: 0.95077014}
+  m_LocalRotation: {x: -0.512942, y: 0, z: 0, w: 0.8584233}
   m_LocalPosition: {x: 0.38199988, y: 1.982, z: 0.30899996}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 3299576273826001395}
   m_RootOrder: 5
-  m_LocalEulerAnglesHint: {x: -33.365, y: 14, z: 0}
+  m_LocalEulerAnglesHint: {x: -61.72, y: 0, z: 0}
 --- !u!1 &6761935391532630087
 GameObject:
   m_ObjectHideFlags: 0

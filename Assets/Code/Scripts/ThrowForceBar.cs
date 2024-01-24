@@ -1,3 +1,5 @@
+using Algoritcom.TechnicalTest.Character;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -10,7 +12,8 @@ namespace Algoritcom.TechnicalTest.Ball
         [SerializeField] private Image powerBar;
 
         [SerializeField] private float power;
-        [SerializeField] private const float maxPower = 100f;
+
+        [SerializeField] private const float maxPower = 15f;
 
         [SerializeField] private float powerCost;
 
@@ -18,11 +21,17 @@ namespace Algoritcom.TechnicalTest.Ball
 
         private Camera mainCamera;
 
+        public float Power { get { return power; } }
+
         private void Start()
         {
             mainCamera = Camera.main;
         }
 
+        private void OnEnable()
+        {
+            power = 0f;
+        }
 
         private void Update()
         {

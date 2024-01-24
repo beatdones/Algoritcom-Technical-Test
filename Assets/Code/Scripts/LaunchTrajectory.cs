@@ -10,9 +10,10 @@ namespace Algoritcom.TechnicalTest.Ball
     {
         [SerializeField] private Rigidbody _rigidbody;
 
-        [SerializeField] private Parabola _parabola;
+        [SerializeField] private BasketBall _basketBall;
 
-        private float _throwingForce = .01f;
+
+        private float _throwingForce = 10f;
 
 
         private void OnEnable()
@@ -20,25 +21,19 @@ namespace Algoritcom.TechnicalTest.Ball
             PlayerController.OnPlayerShoot += Resetposition;
         }
 
-        private void Resetposition(Transform newPosition)
+        private void Resetposition(Transform newPosition, float powerUp)
         {
             transform.position = newPosition.position;
             transform.forward = newPosition.forward;
+            _throwingForce = powerUp;
 
             Impulse();
         }
 
         private void Impulse()
         {
-            _rigidbody.velocity = transform.forward * 10;
-
-            Invoke("Disable", 5f);
-        }
-
-        private void Disable()
-        {
-            gameObject.SetActive(false);
-            GameObject ball = BallPool.Instance.RequestBall();
+            _rigidbody.velocity = transform.forward * _throwingForce;
+            _basketBall.WasLaunched = true;
         }
 
         public void SetThrowingForce(float throwingForce)
