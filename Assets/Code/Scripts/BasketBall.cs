@@ -32,6 +32,7 @@ namespace Algoritcom.TechnicalTest.Ball
                 GameObject ball = BallPool.Instance.RequestBall();
                 isDestroyed = true;
                 wasLaunched = false;
+                this.gameObject.tag = "Untagged";
             }
 
             OnColisionEvent?.Invoke();
@@ -49,6 +50,7 @@ namespace Algoritcom.TechnicalTest.Ball
             Rigidbody rb = GetComponent<Rigidbody>();
             rb.velocity = Vector3.zero;
             rb.angularVelocity = Vector3.zero;
+            this.gameObject.tag = "Ball";
         }
     }
 }

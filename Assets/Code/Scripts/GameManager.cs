@@ -63,7 +63,9 @@ namespace Algoritcom.TechnicalTest.GameManager
 
         public void RestartGame()
         {
-
+            _timer.ResetTime();
+            _chronometer.ResetTime();
+            _score.ResetScore();
         }
 
     }

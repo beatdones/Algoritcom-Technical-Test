@@ -51,9 +51,10 @@ namespace Algoritcom.TechnicalTest.Timer
             _timeOver = true;
         }
 
-        private void ResetTime()
+        public void ResetTime()
         {
             _currentTime = _timerTime;
+            _timeOver = false;
         }
 
         public void SetGameIsStarted(bool value)

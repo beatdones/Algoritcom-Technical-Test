@@ -10,13 +10,21 @@ namespace Algoritcom.TechnicalTest.Score
     {
         [SerializeField] private TMP_Text _scoreText;
 
+        private int _currentScore;
+
         public void IncreaseScore(int amount)
         {
-            int currentScore = Int32.Parse(_scoreText.text);
+            _currentScore = Int32.Parse(_scoreText.text);
 
-            currentScore += amount;
+            _currentScore += amount;
 
-            _scoreText.text = currentScore.ToString();
+            _scoreText.text = _currentScore.ToString();
+        }
+
+        public void ResetScore()
+        {
+            _currentScore = 0;
+            _scoreText.text = _currentScore.ToString();
         }
     }
 }
