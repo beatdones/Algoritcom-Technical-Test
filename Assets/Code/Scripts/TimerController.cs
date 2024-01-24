@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.Events;
+using Algoritcom.TechnicalTest.Score;
 
 namespace Algoritcom.TechnicalTest.Timer
 {
@@ -22,6 +23,8 @@ namespace Algoritcom.TechnicalTest.Timer
         private void Start()
         {
             currentTime = timerTime;
+
+            SwishDetector.OnTriggerEnterEvent += ResetTime;
         }
 
         private void Update()
@@ -46,7 +49,7 @@ namespace Algoritcom.TechnicalTest.Timer
             timeOver = true;
         }
 
-        public void ResetTime()
+        private void ResetTime()
         {
             currentTime = timerTime;
         }

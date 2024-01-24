@@ -27,6 +27,8 @@ namespace Algoritcom.TechnicalTest.GameManager
             chronometer.SetGameIsStarted(true);
         }
 
+
+
     }
 }
 
