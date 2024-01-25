@@ -33,7 +33,6 @@ namespace Algoritcom.TechnicalTest.Ball
         private void Impulse()
         {
             _rigidbody.velocity = transform.forward * _throwingForce;
-            _basketBall.WasLaunched = true;
         }
 
         public void SetThrowingForce(float throwingForce)
