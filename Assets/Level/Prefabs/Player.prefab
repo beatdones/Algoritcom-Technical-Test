@@ -823,7 +823,6 @@ GameObject:
   - component: {fileID: 8875011530614729609}
   - component: {fileID: 8875011530614729604}
   - component: {fileID: 8875011530614729607}
-  - component: {fileID: 8875011530614729602}
   - component: {fileID: 4104597972267605723}
   - component: {fileID: 7147989594675827208}
   m_Layer: 0
@@ -906,25 +905,6 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 1, z: 0}
---- !u!114 &8875011530614729602
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2774678680080018249}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 73756d0fe9b817e45bcead71bf3cf33c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _groundLayer:
-    serializedVersion: 2
-    m_Bits: 256
-  _grounded: 0
-  _throwPoint: {fileID: 8237063632277776726}
-  _throwForceBar: {fileID: 4667560867144826562}
-  _cameraFollowTarget: {fileID: 3044655855369905890}
 --- !u!82 &4104597972267605723
 AudioSource:
   m_ObjectHideFlags: 0
@@ -1741,9 +1721,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4e853f5706252404bb431beb42f32530, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  powerBar: {fileID: 813743786624572822}
-  power: 0
-  powerCost: 15
+  _powerBar: {fileID: 0}
+  _power: 0
+  _powerCost: 0
 --- !u!1 &4626532483587082971
 GameObject:
   m_ObjectHideFlags: 0
@@ -2656,7 +2636,7 @@ MonoBehaviour:
   OnBallEnterTrigger:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 8875011530614729602}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: CharacterController, Assembly-CSharp
         m_MethodName: HaveBall
         m_Mode: 6
