@@ -28,6 +28,8 @@ namespace Algoritcom.TechnicalTest.Ball
 
         private void Impulse()
         {
+            if (_throwingForce < 2) _throwingForce = 2f;
+
             _rigidbody.velocity = transform.forward * _throwingForce;
         }
 
