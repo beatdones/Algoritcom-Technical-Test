@@ -1,8 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 using TMPro;
-using UnityEngine.Events;
+using UnityEngine;
 using Algoritcom.TechnicalTest.Score;
 
 namespace Algoritcom.TechnicalTest.Timer
@@ -18,25 +15,26 @@ namespace Algoritcom.TechnicalTest.Timer
 
         private static bool _gameIsStarted;
 
-        public UnityEvent TimeOverEvent;
-
+        // EVENTS
         public delegate void GameOverEvent();
         public static event GameOverEvent OnGameOverEvent;
 
 
+        #region UNITY METHODS
         private void Start()
         {
             _currentTime = _timerTime;
 
             SwishDetector.OnTriggerEnterEvent += ResetTime;
-
         }
 
         private void Update()
         {
             if(!_timeOver && _gameIsStarted) DecreaseTime();
         }
+        #endregion
 
+        #region PRIVATE METHODS
         private void DecreaseTime()
         {
             _currentTime -= Time.deltaTime;
@@ -50,11 +48,19 @@ namespace Algoritcom.TechnicalTest.Timer
 
         private void TimeOver()
         {
-            TimeOverEvent.Invoke();
             OnGameOverEvent?.Invoke();
             _timeOver = true;
+
+            ResetTime();
         }
 
+        private void OnDisable()
+        {
+            SwishDetector.OnTriggerEnterEvent -= ResetTime;
+        }
+        #endregion
+
+        #region PUBLIC METHODS
         public void ResetTime()
         {
             _currentTime = _timerTime;
@@ -65,6 +71,7 @@ namespace Algoritcom.TechnicalTest.Timer
         {
             _gameIsStarted = value;
         }
+        #endregion
     }
 
 }

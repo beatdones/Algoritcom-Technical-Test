@@ -6,7 +6,7 @@ namespace Algoritcom.TechnicalTest.Score
     public class SwishDetector : MonoBehaviour
     {
         [Header("REFERENCES")]
-        [SerializeField] public string tagToActivate;
+        [SerializeField] private string _tagToActivate;
 
         public static Transform swishPosition;
 
@@ -22,6 +22,10 @@ namespace Algoritcom.TechnicalTest.Score
             swishPosition = this.transform;
         }
 
+        /// <summary>
+        /// Checks if the trigger is valid, calculates the direction between the trigger and the current object, and if the direction's y-component is non-negative.
+        /// </summary>
+        /// <param name="collide"></param>
         private void OnTriggerEnter(Collider collide)
         {
             if (!checkValidTrigger(collide))
@@ -36,11 +40,16 @@ namespace Algoritcom.TechnicalTest.Score
             }
         }
 
+        /// <summary>
+        /// Returns true if the provided collider has a tag that matches the specified _tagToActivate.
+        /// </summary>
+        /// <param name="other"></param>
+        /// <returns></returns>
         private bool checkValidTrigger(Collider other)
         {
-            if (!string.IsNullOrEmpty(tagToActivate))
+            if (!string.IsNullOrEmpty(_tagToActivate))
             {
-                if (other.CompareTag(tagToActivate))
+                if (other.CompareTag(_tagToActivate))
                 {
                     return true;
                 }

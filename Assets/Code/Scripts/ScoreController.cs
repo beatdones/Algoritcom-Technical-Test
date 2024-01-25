@@ -1,7 +1,5 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using TMPro;
+using System;
 using UnityEngine;
 
 namespace Algoritcom.TechnicalTest.Score
@@ -15,9 +13,7 @@ namespace Algoritcom.TechnicalTest.Score
         public void IncreaseScore(int amount)
         {
             _currentScore = Int32.Parse(_scoreText.text);
-
             _currentScore += amount;
-
             _scoreText.text = _currentScore.ToString();
         }
 

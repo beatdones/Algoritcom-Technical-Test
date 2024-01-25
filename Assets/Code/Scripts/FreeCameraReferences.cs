@@ -17,6 +17,12 @@ namespace Algoritcom.TechnicalTest.Character
             _cinemachineFreeLook.Follow = followTarget;
             _cinemachineFreeLook.LookAt = followTarget;
         }
+
+        private void OnDisable()
+        {
+            PlayerController.OnPlayerIsInstantiate -= CameraReference;
+
+        }
     }
 
 }

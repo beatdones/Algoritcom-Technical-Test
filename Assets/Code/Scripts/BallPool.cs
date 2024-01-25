@@ -1,8 +1,5 @@
-using Algoritcom.TechnicalTest.Ball;
-using System;
-using System.Collections.Generic;
-using UnityEditor;
 using UnityEngine;
+using System.Collections.Generic;
 using UnityEngine.AddressableAssets;
 using UnityEngine.ResourceManagement.AsyncOperations;
 
@@ -11,14 +8,13 @@ namespace Algoritcom.TechnicalTest.BallSpawn
     public class BallPool : MonoBehaviour
     {
         #region VARIABLES
+        [Header("REFERENCES")]
         [SerializeField] private AssetReference _assetReference;
         [SerializeField] private int _poolSize = 1;
-
         [SerializeField] private List<GameObject> _pool;
 
-
-        private static BallPool instance;
-        public static BallPool Instance { get { return instance; } }
+        private static BallPool _instance;
+        public static BallPool Instance { get { return _instance; } }
         #endregion
 
         #region UNITY METHODS
@@ -36,9 +32,9 @@ namespace Algoritcom.TechnicalTest.BallSpawn
         #region PRIVATE METHODS
         private void CreateSingleton()
         {
-            if (instance == null)
+            if (_instance == null)
             {
-                instance = this;
+                _instance = this;
             }
             else
             {
@@ -58,6 +54,10 @@ namespace Algoritcom.TechnicalTest.BallSpawn
             }
         }
 
+        /// <summary>
+        /// Receives an asynchronous operation handle for a GameObject, retrieves the result, disables the ball through BallEnabledOrDisabled, and adds it to a pool using AddBallsToPool.
+        /// </summary>
+        /// <param name="obj"></param>
         private void OnComplet(AsyncOperationHandle<GameObject> obj)
         {
             GameObject assetObject = obj.Result;
@@ -79,6 +79,10 @@ namespace Algoritcom.TechnicalTest.BallSpawn
         #endregion
 
         #region PUBLIC METHODS
+        /// <summary>
+        /// Iterates through a pool of GameObjects, activates the first inactive one, repositions it to the player's position, and returns the activated ball GameObject.
+        /// </summary>
+        /// <returns></returns>
         public GameObject RequestBall()
         {
             for (int i = 0; i < _pool.Count; i++)

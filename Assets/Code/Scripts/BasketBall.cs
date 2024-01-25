@@ -1,4 +1,6 @@
 using Algoritcom.TechnicalTest.BallSpawn;
+using Algoritcom.TechnicalTest.Score;
+using Algoritcom.TechnicalTest.Timer;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -13,6 +15,16 @@ namespace Algoritcom.TechnicalTest.Ball
         private void OnEnable()
         {
             ResetBallValues();
+
+            TimerController.OnGameOverEvent += Disable;
+
+            SwishDetector.OnTriggerEnterEvent += Disable;
+        }
+
+        private void OnDisable()
+        {
+            TimerController.OnGameOverEvent -= Disable;
+            SwishDetector.OnTriggerEnterEvent -= Disable;
         }
 
         private void OnCollisionEnter(Collision collision)
@@ -27,9 +39,8 @@ namespace Algoritcom.TechnicalTest.Ball
             rb.angularVelocity = Vector3.zero;
         }
 
-        public void Disable()
+        private void Disable()
         {
-            GameObject ball = BallPool.Instance.RequestBall();
             gameObject.SetActive(false);
         }
     }

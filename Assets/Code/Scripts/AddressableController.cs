@@ -1,5 +1,5 @@
-using System.Collections.Generic;
 using UnityEngine;
+using System.Collections.Generic;
 using UnityEngine.AddressableAssets;
 using UnityEngine.ResourceManagement.AsyncOperations;
 
@@ -8,14 +8,12 @@ namespace Algoritcom.TechnicalTest.Addressable
     public class AddressableController : MonoBehaviour
     {
         [SerializeField] private List<AssetReference> _assetReferences;
-
         [SerializeField] private List<GameObject> _addressableObjects;
 
         private GameObject _addressableObject;
 
-
-        private static AddressableController instance;
-        public static AddressableController Instance { get { return instance; } }
+        private static AddressableController _instance;
+        public static AddressableController Instance { get { return _instance; } }
 
         private void Awake()
         {
@@ -31,9 +29,9 @@ namespace Algoritcom.TechnicalTest.Addressable
 
         private void CreateSingleton()
         {
-            if (instance == null)
+            if (_instance == null)
             {
-                instance = this;
+                _instance = this;
             }
             else
             {

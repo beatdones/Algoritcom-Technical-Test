@@ -1,4 +1,6 @@
 using Algoritcom.TechnicalTest.Ball;
+using Algoritcom.TechnicalTest.Timer;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -10,12 +12,9 @@ namespace Algoritcom.TechnicalTest.Character
         #region VARIABLES
         private float _inputZ;
         private float _inputX;
-
         private float _desiredRotationSpeed = 0.08f;
         private Vector3 _desiredMoveDirection;
-
         private CapsuleCollider _collider;
-        
         private Animator _animator;
         private float _speed = 1.0f;
         private float _allowPlayerRotation = 0.0f;
@@ -23,17 +22,14 @@ namespace Algoritcom.TechnicalTest.Character
 
         private GameObject ball;
 
-
+        [Header("REFERENCES")]
         [SerializeField] private LayerMask _groundLayer;
         [SerializeField] private bool _grounded;
-
         [SerializeField] private Transform _throwPoint;
-
         [SerializeField] private ThrowForceBar _throwForceBar;
-
         [SerializeField] private Transform _cameraFollowTarget;
 
-
+        // EVENTS
         public delegate void PlayerIsInstantiate(Transform followTarget);
         public static event PlayerIsInstantiate OnPlayerIsInstantiate;
 
@@ -42,6 +38,9 @@ namespace Algoritcom.TechnicalTest.Character
 
         public delegate void PlayerPositionEvent(GameObject player);
         public static event PlayerPositionEvent OnPlayerPositionEvent;
+
+        public delegate void StartGameEvent();
+        public static event StartGameEvent OnStartGameEvent;
         #endregion
 
         #region UNITY METHODS
@@ -51,7 +50,9 @@ namespace Algoritcom.TechnicalTest.Character
             _collider = GetComponent<CapsuleCollider>();
 
             OnPlayerIsInstantiate.Invoke(_cameraFollowTarget);
-            TriggerDetector.OnBallEnterEvent += HaveBall;
+
+            TriggerDetector.OnBallEnterEvent += CollisionWithBall;
+            TimerController.OnGameOverEvent += TimeOut;
         }
 
         private void Update()
@@ -128,36 +129,64 @@ namespace Algoritcom.TechnicalTest.Character
             transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(_desiredMoveDirection), _desiredRotationSpeed);
         }
 
+        /// <summary>
+        /// It sets the "Shoot" parameter in an animator to the value of action.
+        /// Additionally, it calls a method EnableOrDisableThrowBar with false as an argument, indicating the disabling of a throw bar.
+        /// </summary>
+        /// <param name="action"></param>
         private void Shoot(bool action)
         {
             _animator.SetBool("Shoot", action);
             EnableOrDisableThrowBar(false);
         }
 
-        private void HaveBall(GameObject ball)
+        private void CollisionWithBall(GameObject ball)
         {
             this.ball = ball;
+            OnStartGameEvent?.Invoke();
         }
 
         private void EnableOrDisableThrowBar(bool state)
         {
             _throwForceBar.gameObject.SetActive(state);
         }
+
+        private void TimeOut()
+        {
+            HaveBall(false);
+        }
+
+        private void OnDisable()
+        {
+            TriggerDetector.OnBallEnterEvent -= CollisionWithBall;
+            TimerController.OnGameOverEvent -= TimeOut;
+        }
         #endregion
 
         #region PUBLIC METHODS
+        /// <summary>
+        /// It is activated by an animation event. Call Shoot(false) and HaveBall(false), to reset the shooting and ball possession states in the associated animation sequence.
+        /// </summary>
+        /// <param name="animationEvent"></param>
         public void TriggerAnimationEvent(AnimationEvent animationEvent)
         {
             Shoot(false);
             HaveBall(false);
         }
 
+        /// <summary>
+        /// Sets the "HaveBall" parameter in an animator and updates a boolean variable _isHaveBall based on the provided action parameter.
+        /// </summary>
+        /// <param name="action"></param>
         public void HaveBall(bool action)
         {
             _animator.SetBool("HaveBall", action);
             _isHaveBall = action;
         }
 
+        /// <summary>
+        /// Activates a ball, triggers events for player shoot with throw point and power, and player position event with the game object.
+        /// </summary>
         public void ThrowBall()
         {
             ball.SetActive(true);

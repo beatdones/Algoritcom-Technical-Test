@@ -525,8 +525,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 0.23536159, z: 1}
-  m_Center: {x: 0, y: -0.38231885, z: 0}
+  m_Size: {x: 1, y: 1.217868, z: 1}
+  m_Center: {x: 0, y: 0.10893457, z: 0}
 --- !u!1 &940664052275502983
 GameObject:
   m_ObjectHideFlags: 0
@@ -579,8 +579,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 0.25433087, z: 1}
-  m_Center: {x: 0, y: -0.37283447, z: 0}
+  m_Size: {x: 1, y: 1.2029579, z: 1}
+  m_Center: {x: 0, y: 0.10147911, z: 0}
 --- !u!1 &940664052367170625
 GameObject:
   m_ObjectHideFlags: 0
@@ -687,8 +687,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 0.24829519, z: 1}
-  m_Center: {x: 0, y: -0.37585226, z: 0}
+  m_Size: {x: 1, y: 1.2223319, z: 1}
+  m_Center: {x: 0, y: 0.11116626, z: 0}
 --- !u!1 &940664052675305598
 GameObject:
   m_ObjectHideFlags: 0
@@ -741,8 +741,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 0.25883177, z: 1}
-  m_Center: {x: 0, y: -0.3705841, z: 0}
+  m_Size: {x: 1, y: 1.1989889, z: 1}
+  m_Center: {x: 0, y: 0.09949455, z: 0}
 --- !u!1 &940664053197187313
 GameObject:
   m_ObjectHideFlags: 0
@@ -974,7 +974,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a36c8566eeeed7c42905591de4d683e6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tagToActivate: Ball
+  _tagToActivate: Ball
   OnTriggerEnterActions:
     m_PersistentCalls:
       m_Calls:
