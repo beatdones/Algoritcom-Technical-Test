@@ -20,6 +20,9 @@ namespace Algoritcom.TechnicalTest.Timer
 
         public UnityEvent TimeOverEvent;
 
+        public delegate void GameOverEvent();
+        public static event GameOverEvent OnGameOverEvent;
+
 
         private void Start()
         {
@@ -48,6 +51,7 @@ namespace Algoritcom.TechnicalTest.Timer
         private void TimeOver()
         {
             TimeOverEvent.Invoke();
+            OnGameOverEvent?.Invoke();
             _timeOver = true;
         }
 

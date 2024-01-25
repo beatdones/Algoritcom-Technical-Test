@@ -15,9 +15,13 @@ namespace Algoritcom.TechnicalTest.GameManager
         [SerializeField] private ChronometerController _chronometer;
         [SerializeField] private ScoreController _score;
 
+        [SerializeField] private GameObject _gameOverUI;
+
         private const float _tripleScoringZone = 7.3f;
 
-        [SerializeField] private int _amountShootingZone;
+        private int _amountShootingZone;
+
+        public static bool gameIsPaused = false;
 
 
         private void Start()
@@ -30,12 +34,19 @@ namespace Algoritcom.TechnicalTest.GameManager
 
         }
 
+        private void Update()
+        {
+            if (Input.GetKeyDown(KeyCode.Escape)) Application.Quit();
+        }
+
         private void StartGame()
         {
             GameObject ball = BallPool.Instance.RequestBall();
             ball.transform.position = BallPool.Instance.gameObject.transform.position;
             _timer.SetGameIsStarted(true);
             _chronometer.SetGameIsStarted(true);
+
+            TimerController.OnGameOverEvent += EndGame;
         }
 
 
@@ -61,12 +72,25 @@ namespace Algoritcom.TechnicalTest.GameManager
             _score.IncreaseScore(_amountShootingZone);
         }
 
+        private void EndGame()
+        {
+            EnableOrDisableGameOverUI(true);
+        }
+
+        private void EnableOrDisableGameOverUI(bool isGameOver)
+        {
+            _gameOverUI.SetActive(isGameOver);
+        }
+
         public void RestartGame()
         {
             _timer.ResetTime();
             _chronometer.ResetTime();
             _score.ResetScore();
+            EnableOrDisableGameOverUI(false);
         }
+
+
 
     }
 }
