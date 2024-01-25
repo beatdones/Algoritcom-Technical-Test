@@ -18,7 +18,6 @@ namespace Algoritcom.TechnicalTest.ThirPersonController
         [SerializeField] private ThrowForceBar _throwForceBar;
         [SerializeField] private Transform _spawnPointTothrowBall;
 
-
         [SerializeField] private float _turnSmoothTime = 0.1f;
 
         private Vector3 _direction;
@@ -33,10 +32,10 @@ namespace Algoritcom.TechnicalTest.ThirPersonController
         private bool _isHaveBall;
 
         // EVENTS
-        public delegate void PlayerIsInstantiate(Transform _cameraFollowTarget);
+        public delegate void PlayerIsInstantiate(Transform cameraFollowTarget);
         public static event PlayerIsInstantiate OnPlayerIsInstantiate;
 
-        public delegate void PlayerShoot(Transform _throwPoint, float powerUp);
+        public delegate void PlayerShoot(Transform throwPoint, float powerUp);
         public static event PlayerShoot OnPlayerShoot;
 
         public delegate void PlayerPositionEvent(GameObject player);
@@ -45,7 +44,11 @@ namespace Algoritcom.TechnicalTest.ThirPersonController
         public delegate void StartGameEvent();
         public static event StartGameEvent OnStartGameEvent;
 
+        public delegate void StartPositionEvent(GameObject character);
+        public static event StartPositionEvent OnStartPositionEvent;
+
         #region UNITY METHODS
+
         private void Start()
         {
             _cam = Camera.main.transform;

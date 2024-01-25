@@ -2,6 +2,7 @@ using UnityEngine;
 using System.Collections.Generic;
 using UnityEngine.AddressableAssets;
 using UnityEngine.ResourceManagement.AsyncOperations;
+using UnityEngine.Events;
 
 namespace Algoritcom.TechnicalTest.BallSpawn
 {
@@ -15,6 +16,8 @@ namespace Algoritcom.TechnicalTest.BallSpawn
 
         private static BallPool _instance;
         public static BallPool Instance { get { return _instance; } }
+
+        public UnityEvent unityEvent;
         #endregion
 
         #region UNITY METHODS
@@ -91,6 +94,7 @@ namespace Algoritcom.TechnicalTest.BallSpawn
                 {
                     BallEnabledOrDisabled(_pool[i], true);
                     _pool[i].transform.position = gameObject.transform.position;
+                    unityEvent?.Invoke();
                     return _pool[i];
                 }
             }

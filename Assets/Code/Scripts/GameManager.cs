@@ -45,7 +45,7 @@ namespace Algoritcom.TechnicalTest.GameManagerController
         private void InstantiateBall()
         {
             GameObject ball = BallPool.Instance.RequestBall();
-            ball.transform.position = BallPool.Instance.gameObject.transform.position;
+            //ball.transform.position = BallPool.Instance.gameObject.transform.position;
         }
 
         private void StartGame()
