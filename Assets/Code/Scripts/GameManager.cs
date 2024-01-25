@@ -4,6 +4,7 @@ using Algoritcom.TechnicalTest.Score;
 using Algoritcom.TechnicalTest.BallSpawn;
 using Algoritcom.TechnicalTest.Character;
 using Algoritcom.TechnicalTest.Chronometer;
+using Algoritcom.TechnicalTest.ThirPersonController;
 
 namespace Algoritcom.TechnicalTest.GameManager
 {
@@ -25,10 +26,10 @@ namespace Algoritcom.TechnicalTest.GameManager
         {
             Invoke("InstantiateBall", 2f);
 
-            PlayerController.OnPlayerPositionEvent += DetectShootingZone;
+            ThirdPersonMovement.OnPlayerPositionEvent += DetectShootingZone;
             SwishDetector.OnTriggerEnterEvent += IncreaseScoreToScoreboard;
             TimerController.OnGameOverEvent += InstantiateBallBecauseTimerEnds;
-            PlayerController.OnStartGameEvent += StartGame;
+            ThirdPersonMovement.OnStartGameEvent += StartGame;
         }
 
         private void Update()
@@ -85,10 +86,10 @@ namespace Algoritcom.TechnicalTest.GameManager
 
         private void OnDisable()
         {
-            PlayerController.OnPlayerPositionEvent -= DetectShootingZone;
+            ThirdPersonMovement.OnPlayerPositionEvent -= DetectShootingZone;
             SwishDetector.OnTriggerEnterEvent -= IncreaseScoreToScoreboard;
             TimerController.OnGameOverEvent -= InstantiateBallBecauseTimerEnds;
-            PlayerController.OnStartGameEvent -= StartGame;
+            ThirdPersonMovement.OnStartGameEvent -= StartGame;
         }
         #endregion
 

@@ -1,3 +1,4 @@
+using Algoritcom.TechnicalTest.ThirPersonController;
 using Cinemachine;
 using UnityEngine;
 
@@ -9,7 +10,7 @@ namespace Algoritcom.TechnicalTest.Character
 
         private void Start()
         {
-            PlayerController.OnPlayerIsInstantiate += CameraReference;
+            ThirdPersonMovement.OnPlayerIsInstantiate += CameraReference;
         }
 
         private void CameraReference(Transform followTarget)
@@ -20,7 +21,7 @@ namespace Algoritcom.TechnicalTest.Character
 
         private void OnDisable()
         {
-            PlayerController.OnPlayerIsInstantiate -= CameraReference;
+            ThirdPersonMovement.OnPlayerIsInstantiate -= CameraReference;
 
         }
     }

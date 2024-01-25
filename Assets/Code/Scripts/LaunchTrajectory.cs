@@ -1,5 +1,6 @@
 using UnityEngine;
 using Algoritcom.TechnicalTest.Character;
+using Algoritcom.TechnicalTest.ThirPersonController;
 
 namespace Algoritcom.TechnicalTest.Ball
 {
@@ -13,7 +14,7 @@ namespace Algoritcom.TechnicalTest.Ball
 
         private void OnEnable()
         {
-            PlayerController.OnPlayerShoot += Resetposition;
+            ThirdPersonMovement.OnPlayerShoot += Resetposition;
         }
 
         private void Resetposition(Transform newPosition, float powerUp)
@@ -32,7 +33,7 @@ namespace Algoritcom.TechnicalTest.Ball
 
         private void OnDisable()
         {
-            PlayerController.OnPlayerShoot -= Resetposition;
+            ThirdPersonMovement.OnPlayerShoot -= Resetposition;
         }
 
         public void SetThrowingForce(float throwingForce)
