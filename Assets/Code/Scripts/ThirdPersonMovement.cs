@@ -115,13 +115,13 @@ namespace Algoritcom.TechnicalTest.ThirPersonController
 
         private void ChargueThrowBar()
         {
-            if (Input.GetButtonDown("Fire1") && _isHaveBall)
+            if (Input.GetButtonDown("Jump") && _isHaveBall)
                 EnableOrDisableThrowBar(true);
         }
 
         private void InputoToThrowBall()
         {
-            if (Input.GetButtonUp("Fire1") && _isHaveBall)
+            if (Input.GetButtonUp("Jump") && _isHaveBall)
                 ThrowBall(true);
         }
 
@@ -150,6 +150,7 @@ namespace Algoritcom.TechnicalTest.ThirPersonController
         private void RemoveBallFromHandsTimerIsOver()
         {
             HaveBall(false);
+            EnableOrDisableThrowBar(false);
         }
 
         private void SusbribeToEvents()
