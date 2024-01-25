@@ -6,7 +6,7 @@ using Algoritcom.TechnicalTest.Character;
 using Algoritcom.TechnicalTest.Chronometer;
 using Algoritcom.TechnicalTest.ThirPersonController;
 
-namespace Algoritcom.TechnicalTest.GameManager
+namespace Algoritcom.TechnicalTest.GameManagerController
 {
     public class GameManager : MonoBehaviour
     {
@@ -20,6 +20,9 @@ namespace Algoritcom.TechnicalTest.GameManager
         private int _amountShootingZone;
 
         public static bool gameIsPaused = false;
+
+        public delegate void RestartStartGameEvent();
+        public static event RestartStartGameEvent OnRestartStartGameEvent;
 
         #region UNITY METHODS
         private void Start()
@@ -99,6 +102,8 @@ namespace Algoritcom.TechnicalTest.GameManager
             _timer.ResetTime();
             _chronometer.ResetTime();
             _score.ResetScore();
+            OnRestartStartGameEvent?.Invoke();
+            InstantiateBall();
         }
         #endregion
 

@@ -1,5 +1,6 @@
 using Algoritcom.TechnicalTest.Ball;
 using Algoritcom.TechnicalTest.Character;
+using Algoritcom.TechnicalTest.GameManagerController;
 using Algoritcom.TechnicalTest.Timer;
 using System.Collections;
 using System.Collections.Generic;
@@ -157,12 +158,14 @@ namespace Algoritcom.TechnicalTest.ThirPersonController
         {
             TriggerDetector.OnBallEnterEvent += TouchBasketBall;
             TimerController.OnGameOverEvent += RemoveBallFromHandsTimerIsOver;
+            GameManager.OnRestartStartGameEvent += RemoveBallFromHandsTimerIsOver;
         }
 
         private void UnsusbribeToEvents()
         {
             TriggerDetector.OnBallEnterEvent -= TouchBasketBall;
             TimerController.OnGameOverEvent -= RemoveBallFromHandsTimerIsOver;
+            GameManager.OnRestartStartGameEvent -= RemoveBallFromHandsTimerIsOver;
         }
         #endregion
 
@@ -181,7 +184,7 @@ namespace Algoritcom.TechnicalTest.ThirPersonController
         /// Sets the "HaveBall" parameter in an animator and updates a boolean variable _isHaveBall based on the provided action parameter.
         /// </summary>
         /// <param name="action"></param>
-        public void HaveBall(bool action)
+        private void HaveBall(bool action)
         {
             _animator.SetBool("HaveBall", action);
             _isHaveBall = action;
